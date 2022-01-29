@@ -1,4 +1,4 @@
-# typeScript 기초 타입 정리
+# typeScript 타입 정리
 
 let age :JSX.Element = <div> 내용 </div>;  //컴포넌트 jsx 타입지정 
 ```
