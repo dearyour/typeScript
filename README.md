@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# typeScript 기초 타입 정리
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+let age :JSX.Element = <div> 내용 </div>;  //컴포넌트 jsx 타입지정 
+```
+ const output = useSelector( (state :{count: number}) => state); 
+ const output = useSelector( (state :RootState) => state); //리덕스에서가져온 타입
+ const dispatch :Dispatch = useDispatch(); //디스패치 날릴때 해당 액션타입 쓰게 정의
+```
 
-## Available Scripts
+따로 tpye 빼내서 정의 
+``` 
+type tempType = {address:string, job:number}
+function User(props :tempType) :JSX.Element
+```
 
-In the project directory, you can run:
+interface로 정의 
+```
+interface arrLength {
+  count: number
+  }
+const initial :arrLength= {count:0};
+```
+페이로드 액션은 리듀서에서 어떤 액션타입이 들어가는지 정의 
+```
+    randomss(state, action :PayloadAction<number>){  // 페이로드액션은 액션에 어떤타입들어가는지
+      state.count += action.payload
+    },
+```
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+name : string | undefind
+name? : string
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+함수타입은 () =>{}
+함수표현식에만 type alias 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+type 지정할타입명 = (a :string) => number;
 
-### `npm run build`
+let 함수 :함수타입명 = function(a) {
+	return 10 
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+일반 변수나 함수는 type
+오브젝트는 interface
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+유니온 타입, 둘다들어올떄,   
+function hamsu(a: string | undefined){
+	if( a && typeof a === 'string') {
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+	} a가 언디파인이면 실행안되고 스트링이면 실행 narrowing
+}
 
-### `npm run eject`
+```
+---
+```
+타입스크립트쓰는이유 
+사실 타입스크립트는 처음부터 내가 개발하고 내가 끝내는
+지금 프로젝트에서 전혀 쓸 이유가 없다
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+하지만 추후 저희가 새로운 곳에 이미 진행되는 프로젝트에 내가 참여할 확률이 높은데 
+이경우 어떤 변수가 어떤타입인지 따로찾아야하고 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+자바스크립트의 타입 자유도가 오히려 에러를 야기 할수 있기때문에
+타입을 강제함으로써 자바스크립트의 자유도를 억제시키고 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+해당타입에대한 정의를 따로함으로써 어떤 props을 넘겨야할지 axios 통신을할떄
+어떤데이터를 넘겨야할지에 대한 이해를 높일수있음으로 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+중간에 참여하는 프로젝트라 할지라도 일반 자바스크립트로만 만들어진 리액트보다 더나은 이해를 할수있고 
+js보다 더 구체적인 에러를 도출시킴으로써  에러 해결시간을 줄여주기 위해서
+타입스크립트 사용이 선호된다고 생각된다.
+```
