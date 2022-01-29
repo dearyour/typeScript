@@ -52,10 +52,37 @@ function hamsu(a: string | undefined){
 	} a가 언디파인이면 실행안되고 스트링이면 실행 narrowing
 }
 
+타입모르면 :any 쓰면됨  하지만 그러면 ts 쓰는 이유가없어짐 
+
+function 함수(x :unknown[]){
+   return x[0]
+}
+
+interface arrLength {
+length: number
+}
+
+function check<tempType extends arrLength>(x: tempType){
+	return x.length 
+}
+let a = 함수<string[]>(['100'])
+
+let age :JSX.Elemnet = <div> 내용 <div> 
+
+fucn
+
+function user() : JSX.Element {
+return <div>프로필입니다</div>
+}
+
+
 ```
 ---
+# 타입스크립트쓰는이유 
 ```
-타입스크립트쓰는이유 
+타입스크립트는 일반 자바스크립트보다는 신경써야 할점이 좀더 있고 
+코드량이 더 많아지는데도 불구하고 왜 사람들이 선호할까 라는 생각을 했다.
+
 사실 타입스크립트는 처음부터 내가 개발하고 내가 끝내는
 지금 프로젝트에서 전혀 쓸 이유가 없다
 
@@ -72,3 +99,4 @@ function hamsu(a: string | undefined){
 js보다 더 구체적인 에러를 도출시킴으로써  에러 해결시간을 줄여주기 위해서
 타입스크립트 사용이 선호된다고 생각된다.
 ```
+
